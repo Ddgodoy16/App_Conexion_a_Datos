@@ -9,14 +9,16 @@ export const styles = StyleSheet.create({
   },
 
   texto: {
-    fontSize: 25,
+    paddingTop: 50,
+    fontSize: 40,
     fontWeight: 'bold',
+    textAlign: 'center',
     
   },
 
   image: {
-    width: 100, 
-    height: 100, 
+    width: 350, 
+    height: 350, 
   },
 
   modalContainer: {
@@ -26,12 +28,16 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalImage: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
   },
   modalText: {
     fontSize: 25,
     marginBottom: 10,
   },
+  searchInput:{
+    paddingTop: 80,
+    
+  }
 
 });

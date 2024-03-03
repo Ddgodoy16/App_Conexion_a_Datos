@@ -1,55 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Modal, Button } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Modal, Button} from 'react-native';
 import axios from 'axios';
 import { styles } from '../Styles';
 
+
+
+ 
 export function PokemonItem({ item }) {
   const [data, setData] = useState(null);
-  const [cargando, setCargando] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
       try {
-        const respuesta = await axios.get(item.url);
-        setData(respuesta.data);
+        const response = await axios.get(item.url);
+        setData(response.data);
         setError(null);
       } catch (error) {
-        console.error(`Error al obtener los datos del servicio`, error);
+        console.error('Error fetching Pokemon details:', error);
         setError(error);
       } finally {
-        setCargando(false);
+        setLoading(false);
       }
-    }
+    };
     fetchPokemonData();
   }, [item]);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
-  }
+  };
 
-  if (cargando) {
-    return (
-      <View style={styles.container}>
-        <Text>Cargando...</Text>
-      </View>
-    );
+  if (loading) {
+    return <Text>Cargando...</Text>;
   }
 
   if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>Ocurrió un error al cargar los datos</Text>
-      </View>
-    );
+    return <Text>Ocurrió un error al cargar los datos</Text>;
   }
 
   return (
     <View>
       <TouchableOpacity onPress={toggleModal}>
+      <Text style={styles.texto}>{item.name}</Text>
         <Image source={{ uri: data.sprites.front_default }} style={styles.image} />
-        <Text style={styles.texto}>{item.name}</Text>
+        
       </TouchableOpacity>
       <Modal
         animationType="slide"
